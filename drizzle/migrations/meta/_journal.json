@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788777502198,
+      "tag": "0000_workflow_core_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788777528552,
+      "tag": "0001_attachment_storage_policies",
+      "breakpoints": true
+    }
+  ]
+}
