@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Bell, ClipboardList, Inbox, LayoutDashboard, LogOut, Plus } from "lucide-react";
+import { Bell, ClipboardList, Inbox, LayoutDashboard, LogOut, Plus, Users } from "lucide-react";
 import type { ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuthUser, useMyProfile, useMyRoles } from "@/hooks/useAuth";
@@ -13,6 +13,8 @@ const nav = [
   { to: "/requests/new", label: "New request", icon: Plus },
   { to: "/notifications", label: "Notifications", icon: Bell },
 ] as const;
+
+const adminNav = { to: "/admin", label: "Team roles", icon: Users } as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
@@ -49,7 +51,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             ServiceDesk
           </Link>
           <nav className="order-3 flex w-full gap-1 overflow-x-auto md:order-2 md:w-auto md:flex-1 md:justify-center">
-            {nav.map((item) => (
+            {[...nav, ...(roles?.includes("admin") ? [adminNav] : [])].map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
