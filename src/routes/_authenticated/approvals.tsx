@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/approvals")({
       { property: "og:description", content: "Approve or reject employee requests waiting on your role." },
     ],
   }),
-  component: Approvals;
+  component: Approvals,
 });
 
 function Approvals() {
