@@ -81,7 +81,7 @@ function NewRequest() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     const parsed = schema.safeParse({ departmentId, requestTypeId, comments });
-    if (!parsed.success) return toast.error(parsed.error.issues[0]!.message);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]!.message); return; }
     setSaving(true);
     try {
       const paths = files.length ? await uploadAttachments(user!.id, files) : [];

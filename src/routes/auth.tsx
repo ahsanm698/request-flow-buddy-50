@@ -50,11 +50,11 @@ function AuthPage() {
   async function signIn(e: React.FormEvent) {
     e.preventDefault();
     const parsed = credentials.safeParse({ email, password });
-    if (!parsed.success) return toast.error(parsed.error.issues[0]!.message);
+    if (!parsed.success) { toast.error(parsed.error.issues[0]!.message); return; }
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword(parsed.data);
     setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     toast.success("Welcome back");
     navigate({ to: "/dashboard" });
   }
@@ -62,15 +62,15 @@ function AuthPage() {
   async function signUp(e: React.FormEvent) {
     e.preventDefault();
     const parsed = credentials.safeParse({ email, password });
-    if (!parsed.success) return toast.error(parsed.error.issues[0]!.message);
-    if (!name.trim()) return toast.error("Please enter your full name");
+    if (!parsed.success) { toast.error(parsed.error.issues[0]!.message); return; }
+    if (!name.trim()) { toast.error("Please enter your full name"); return; }
     setLoading(true);
     const { data, error } = await supabase.auth.signUp({
       ...parsed.data,
       options: { emailRedirectTo: window.location.origin, data: { name: name.trim() } },
     });
     setLoading(false);
-    if (error) return toast.error(error.message);
+    if (error) { toast.error(error.message); return; }
     if (data.session) {
       navigate({ to: "/dashboard" });
     } else {
@@ -82,7 +82,7 @@ function AuthPage() {
     const result = await lovable.auth.signInWithOAuth("google", {
       redirect_uri: window.location.origin,
     });
-    if (result.error) return toast.error("Google sign-in failed");
+    if (result.error) { toast.error("Google sign-in failed"); return; }
     if (result.redirected) return;
     navigate({ to: "/dashboard" });
   }
