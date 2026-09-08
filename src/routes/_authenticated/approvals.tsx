@@ -28,7 +28,7 @@ function Approvals() {
       const { data, error } = await supabase
         .from("request_approvals")
         .select(
-          "id, step_order, approver_role, request_id, requests(id, created_at, status, employee_id, request_types(name), departments(name), profiles:employee_id(name, email))",
+          "id, step_order, approver_role, request_id, requests(id, created_at, status, employee_id, request_types(name), departments(name))",
         )
         .eq("status", "pending")
         .in("approver_role", roles!)
@@ -69,7 +69,6 @@ function Approvals() {
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{a.requests?.request_types?.name}</p>
                   <p className="text-xs text-muted-foreground">
-                    {a.requests?.profiles?.name || a.requests?.profiles?.email} ·{" "}
                     {a.requests?.departments?.name} · {formatDate(a.requests?.created_at ?? null)}
                   </p>
                 </div>

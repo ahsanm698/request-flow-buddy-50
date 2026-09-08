@@ -96,7 +96,7 @@ function RequestDetail() {
       const { error } = await supabase.rpc("act_on_request", {
         _request_id: id,
         _decision: decision,
-        _comments: comments.trim() || null,
+        _comments: comments.trim() || undefined,
         _attachments: paths,
       });
       if (error) throw error;
